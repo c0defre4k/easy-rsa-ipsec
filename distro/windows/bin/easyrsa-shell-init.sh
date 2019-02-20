@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2161,SC1091
 
 # This script is a frontend designed to create & launch a POSIX shell
 # environment suitable for use with Easy-RSA. mksh/Win32 is used with this
@@ -24,7 +25,8 @@ for f in $extern_list; do
 		echo "  files."
 		echo ""
 		echo "  Press enter to exit."
-		read x
+		#shellcheck disable=SC2162
+		read
 		exit 1
 	fi
 done
@@ -32,9 +34,9 @@ done
 # set_var is defined as any vars file needs it.
 # This is the same as in easyrsa, but we _don't_ export
 set_var() {
-        local var=$1
+        var="$1"
         shift
-        local value="$*"
+        value="$*"
         eval "$var=\"\${$var-$value}\""
 } #=> set_var()
 
