@@ -794,6 +794,13 @@ $(display_dn req "$req_in")
 				default_server_san "$req_in"
 		fi
 
+		if [ "$crt_type" = 'client' ];
+		then
+			echo "$EASYRSA_EXTRA_EXTS" |
+				grep -q subjectAltName ||
+				default_server_san "$req_in"
+		fi
+
 		# Add any advanced extensions supplied by env-var:
 		[ -n "$EASYRSA_EXTRA_EXTS" ] && print "$EASYRSA_EXTRA_EXTS"
 
